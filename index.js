@@ -23,7 +23,24 @@ async function run() {
     const usersCollection = client.db("Triluxo").collection("allUser");
     const reminderCollection = client.db("Triluxo").collection("reminders");
 
-   
+    // save user data
+    app.put("/user/:email", async (req, res) => {
+      const email = req.params.email;
+      const user = req.body;
+      const filter = { email };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: user,
+      };
+      const result = await usersCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+
+    
   } finally {
   }
 }
