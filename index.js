@@ -53,7 +53,22 @@ async function run() {
       const result = await reminderCollection.insertOne(data);
       res.send(result);
     });
-    
+    // update reminder
+    app.put("/reminder/:id", async (req, res) => {
+      const id = req.params.id;
+      const status = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: status,
+      };
+      const result = await reminderCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
   } finally {
   }
 }
