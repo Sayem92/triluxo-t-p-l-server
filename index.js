@@ -46,6 +46,13 @@ async function run() {
       const result = await reminderCollection.find({ email }).toArray();
       res.send(result);
     });
+
+    // add reminder
+    app.post("/addReminder", async (req, res) => {
+      const data = req.body;
+      const result = await reminderCollection.insertOne(data);
+      res.send(result);
+    });
     
   } finally {
   }
