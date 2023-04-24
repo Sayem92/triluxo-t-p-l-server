@@ -40,6 +40,12 @@ async function run() {
       res.send(result);
     });
 
+    // get reminder
+    app.get("/myReminders/:email", async (req, res) => {
+      const email = req.params.email;
+      const result = await reminderCollection.find({ email }).toArray();
+      res.send(result);
+    });
     
   } finally {
   }
